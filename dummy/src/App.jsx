@@ -34,7 +34,7 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Dashboard />} />
+        {/* <Route path="/" element={<Dashboard />} /> */}
         {/* {isLoggedIn && ( */}
         <>
           <Route path="/welcome" element={<Home />} />
@@ -43,7 +43,7 @@ function App() {
           <Route path="/AddCategory" element={<AddCategory />} />
         </>
         {/* )} */}
-        {/* {!isLoggedIn && <Route path="/" element={<Login />} />} */}
+        {!isLoggedIn && <Route path="/" element={<Login />} />}
       </Routes>
     </BrowserRouter>
   );
