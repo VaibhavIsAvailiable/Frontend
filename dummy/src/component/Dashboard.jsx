@@ -1,21 +1,32 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { Drawer, Toolbar, List, ListItemButton, ListItemIcon, ListItemText, Divider } from '@mui/material';
-import { Category, Home, ProductionQuantityLimits } from '@mui/icons-material';
-
+import {
+  Drawer,
+  Toolbar,
+  List,
+  ListItemButton,
+  ListItemIcon,
+  ListItemText,
+  Divider,
+} from "@mui/material";
 import Header from "./Header";
+
+import productsIcon from "../assets/products.svg";
+import homeIcon from "../assets/home.svg";
+import categoryIcon from "../assets/category.svg";
+import arrow from "../assets/Vector.svg";
 
 const Dashboard = () => {
   const getCookie = (name) => {
     const cookieValue = document.cookie
-      .split('; ')
-      .find(row => row.startsWith(name))
-      ?.split('=')[1];
-    return cookieValue || '';
+      .split("; ")
+      .find((row) => row.startsWith(name))
+      ?.split("=")[1];
+    return cookieValue || "";
   };
 
-  const name = getCookie('name');
-  const userId = getCookie('userId');
+  const name = getCookie("name");
+  const userId = getCookie("userId");
 
   const [activeItem, setActiveItem] = useState(null);
 
@@ -25,66 +36,101 @@ const Dashboard = () => {
 
   return (
     <>
-      <Header/>
-      <div style={{ display: 'flex', marginTop: '64px' }}> {/* Adjust the marginTop value based on your Header height */}
+      <Header />
+      <div style={{ display: "flex", marginTop: "64px" }}>
+        {" "}
+        {/* Adjust the marginTop value based on your Header height */}
         <Drawer variant="permanent">
           <Toolbar />
-          <div className="sidebar">
-            <List>
+          <div
+            className="sidebar"
+            style={{
+              minWidth: "348px",
+              display: "flex",
+              height: "100%",
+              boxShadow: "2px 0 5px rgba(0, 0, 0, 0.1)",
+              backgroundColor: "#F4F4F4",
+            }}
+          >
+            <List
+              style={{
+                width: "100%",
+                alignItems: "flex-start",
+                height: "100%",
+              }}
+            >
               <ListItemButton
                 component={Link}
-                to="/AllCategory"
-                selected={activeItem === 'home'}
-                onClick={() => handleItemClick('home')}
+                to="/welcome"
+                selected={activeItem === "home"}
+                onClick={() => handleItemClick("home")}
+                style={{
+                  backgroundColor: activeItem == "home" ? "#FFF8B7" : "",
+                }}
               >
                 <ListItemIcon>
-                  <Home color={activeItem === 'home' ? 'primary' : 'inherit'} />
+                  <img
+                    src={homeIcon}
+                    alt="Home"
+                    style={{
+                      color: activeItem === "home" ? "#3f51b5" : "#FFF8B7",
+                    }}
+                  />
                 </ListItemIcon>
                 <ListItemText primary="Home" />
+                <img
+                  src={arrow}
+                  style={{
+                    color: activeItem === "home" ? "#3f51b5" : "black",
+                  }}
+                />
               </ListItemButton>
               <ListItemButton
                 component={Link}
-                to="/my-profile"
-                selected={activeItem === 'category'}
-                onClick={() => handleItemClick('category')}
+                // to="/my-profile"
+                selected={activeItem === "category"}
+                onClick={() => handleItemClick("category")}
+                style={{
+                  backgroundColor: activeItem == "category" ? "#FFF8B7" : "",
+                }}
               >
                 <ListItemIcon>
-                  <Category color={activeItem === 'category' ? 'primary' : 'inherit'} />
+                  <img src={categoryIcon} alt="Category" />
                 </ListItemIcon>
                 <ListItemText primary="Category" />
+
+                <img src={arrow} />
               </ListItemButton>
               <ListItemButton
                 component={Link}
-                to="/AllCategory"
-                selected={activeItem === 'products'}
-                onClick={() => handleItemClick('products')}
+                // to="/AllCategory"
+                selected={activeItem === "products"}
+                onClick={() => handleItemClick("products")}
+                style={{
+                  backgroundColor: activeItem == "products" ? "#FFF8B7" : "",
+                }}
               >
                 <ListItemIcon>
-                  <ProductionQuantityLimits color={activeItem === 'products' ? 'primary' : 'inherit'} />
+                  <img
+                    src={productsIcon}
+                    alt="Products"
+                    style={{
+                      color: activeItem === "products" ? "#3f51b5" : "#FFF8B7",
+                    }}
+                  />
                 </ListItemIcon>
                 <ListItemText primary="Products" />
+                <img
+                  src={arrow}
+                  style={{
+                    color: activeItem === "products" ? "#3f51b5" : "#FFF8B7",
+                  }}
+                />
               </ListItemButton>
             </List>
             <Divider />
           </div>
         </Drawer>
-        <div style={{ flexGrow: 1, padding: '20px' }}>
-          {/* Dashboard content */}
-          <nav className="navbar navbar-expand-lg navbar-light bg-light">
-            <div className="container-fluid">
-              <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span className="navbar-toggler-icon"></span>
-              </button>
-              <div className="collapse navbar-collapse" id="navbarNav">
-                <ul className="navbar-nav ms-auto">
-                  <li className="nav-item">
-                    <Link className="nav-link" to="/logout">Hello Admin {name}</Link>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </nav>
-        </div>
       </div>
     </>
   );
